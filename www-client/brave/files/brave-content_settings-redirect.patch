@@ -1,0 +1,50 @@
+--- a/brave/chromium_src/components/content_settings/core/browser/content_settings_utils.cc
++++ b/brave/chromium_src/components/content_settings/core/browser/content_settings_utils.cc
+@@ -11,6 +11,6 @@
+   map->GetSettingsForOneType(ContentSettingsType::PLUGINS, "braveShields",    \
+                              &(rules->brave_shields_rules));
+ 
+-#include "../../../../../components/content_settings/core/browser/content_settings_utils.cc"  // NOLINT
++#include "../../../../../../components/content_settings/core/browser/content_settings_utils.cc"  // NOLINT
+ 
+ #undef BRAVE_BRAVE_GET_RENDER_CONTENT_SETTING_RULES
+--- a/brave/chromium_src/components/content_settings/core/common/content_settings.cc
++++ b/brave/chromium_src/components/content_settings/core/common/content_settings.cc
+@@ -6,6 +6,6 @@
+ #define BRAVE_IS_RENDERER_CONTENT_SETTING \
+   content_type == ContentSettingsType::AUTOPLAY ||
+ 
+-#include "../../../../../components/content_settings/core/common/content_settings.cc"  // NOLINT
++#include "../../../../../../components/content_settings/core/common/content_settings.cc"  // NOLINT
+ 
+ #undef BRAVE_IS_RENDERER_CONTENT_SETTING
+--- a/brave/chromium_src/components/content_settings/core/common/content_settings_mojom_traits.cc
++++ b/brave/chromium_src/components/content_settings/core/common/content_settings_mojom_traits.cc
+@@ -8,6 +8,6 @@
+       data.ReadFingerprintingRules(&out->fingerprinting_rules) && \
+       data.ReadBraveShieldsRules(&out->brave_shields_rules)&&
+ 
+-#include "../../../../../components/content_settings/core/common/content_settings_mojom_traits.cc"  // NOLINT
++#include "../../../../../../components/content_settings/core/common/content_settings_mojom_traits.cc"  // NOLINT
+ 
+ #undef BRAVE_READ_RENDERER_CONTENT_SETTING_RULES_DATA_VIEW
+--- a/brave/chromium_src/components/content_settings/core/common/content_settings_mojom_traits.h
++++ b/brave/chromium_src/components/content_settings/core/common/content_settings_mojom_traits.h
+@@ -20,7 +20,7 @@
+     return r.brave_shields_rules;                                              \
+   }
+ 
+-#include "../../../../../components/content_settings/core/common/content_settings_mojom_traits.h"  // NOLINT
++#include "../../../../../../components/content_settings/core/common/content_settings_mojom_traits.h"  // NOLINT
+ 
+ #undef BRAVE_CONTENT_SETTINGS_MOJOM_TRAITS_H
+ 
+--- a/brave/chromium_src/components/content_settings/core/common/cookie_settings_base.cc
++++ b/brave/chromium_src/components/content_settings/core/common/cookie_settings_base.cc
+@@ -16,5 +16,5 @@
+       IsThirdPartyRequest(url, site_for_cookies), nullptr, &content_setting); \
+   return IsAllowed(content_setting);
+ 
+-#include "../../../../../components/content_settings/core/common/cookie_settings_base.cc"  // NOLINT
++#include "../../../../../../components/content_settings/core/common/cookie_settings_base.cc"  // NOLINT
+ #undef BRAVE_IS_COOKIE_ACCESS_ALLOWED

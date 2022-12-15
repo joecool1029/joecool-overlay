@@ -1,0 +1,32 @@
+--- a/brave/vendor/bat-native-anonize/relic/src/relic_util.c
++++ b/brave/vendor/bat-native-anonize/relic/src/relic_util.c
+@@ -43,10 +43,6 @@
+ #endif
+ 
+ 
+-#if !defined __clang__
+-#include <intrin.h>
+-#endif
+-
+ /*============================================================================*/
+ /* Private definitions                                                        */
+ /*============================================================================*/
+@@ -145,18 +141,10 @@
+ 	}
+ 	return 0;
+ #elif WORD == 32
+-#if !defined __clang__
+-	return DIGIT - __lzcnt(a);
+-#else
+ 	return DIGIT - __builtin_clz(a);
+-#endif
+ #elif WORD == 64
+-#if !defined __clang__
+-	return DIGIT - __lzcnt64(a);
+-#else
+ 	return DIGIT - __builtin_clzll(a);
+ #endif
+-#endif
+ }
+ 
+ int util_cmp_const(const void * a, const void *b, int size) {

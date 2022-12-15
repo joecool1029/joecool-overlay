@@ -1,0 +1,20 @@
+--- a/src/arch/i386/interface/pxe/pxe_call.c
++++ b/src/arch/i386/interface/pxe/pxe_call.c
+@@ -271,7 +271,7 @@
+ 		DBG ( "Restarting NBP (%x)\n", jmp );
+ 
+ 	/* Far call to PXE NBP */
+-	__asm__ __volatile__ ( REAL_CODE ( "movw %%cx, %%es\n\t"
++	__asm__ __volatile__ ( REAL_CODE ( "pushl %%ebp\n\t"
+ 					   "pushw %%es\n\t"
+ 					   "pushw %%di\n\t"
+ 					   "sti\n\t"
+@@ -284,7 +284,7 @@
+ 			         "c" ( rm_cs ),
+ 			         "d" ( virt_to_phys ( &pxenv ) ),
+ 				 "D" ( __from_text16 ( &ppxe ) )
+-			       : "esi", "ebp", "memory" );
++			       : "esi", "memory" );
+ 	if ( status )
+ 		return -EPXENBP ( status );
+ 
