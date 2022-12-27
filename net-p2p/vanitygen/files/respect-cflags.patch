@@ -1,7 +1,0 @@
---- a/Makefile	2014-12-17 16:51:20.436628069 -0500
-+++ b/Makefile	2014-12-17 16:55:41.879959130 -0500
-@@ -1,4 +1,3 @@
--CFLAGS		:=	-O4 -march=native -Wall
- # CFLAGS		:=	-O3
- 
- SRCS		:=	vanitygen.c			\
