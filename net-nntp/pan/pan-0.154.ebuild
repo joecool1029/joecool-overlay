@@ -11,13 +11,17 @@ SRC_URI="https://gitlab.gnome.org/GNOME/pan/-/archive/v${PVR}/${PN}-v${PVR}.tar.
 LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~x86"
-IUSE="dbus libnotify nls spell ssl"
+IUSE="dbus gnome-keyring libnotify nls spell ssl"
 
 RDEPEND="
 	>=dev-libs/glib-2.26:2
 	dev-libs/gmime:3.0
 	>=sys-libs/zlib-1.2.0
 	>=x11-libs/gtk+-3.00:3
+	gnome-keyring? (
+		>=app-crypt/gcr-3.20
+		>=app-crypt/libsecret-0.20
+	)
 	libnotify? ( >=x11-libs/libnotify-0.4.1:0= )
 	spell? (
 		>=app-text/enchant-2.2.3:2
@@ -40,6 +44,7 @@ src_prepare() {
 src_configure() {
 	local myconf=(
 		$(use_with dbus) \
+		$(use_with gnome-keyring gkr) \
 		$(use_with nls) \
 		$(use_with spell gtkspell) \
 		$(use_enable libnotify) \
