@@ -9,7 +9,7 @@ PYTHON_REQ_USE="sqlite"
 inherit optfeature python-single-r1 systemd
 
 MY_PV="${PV/_rc/RC}"
-MY_PV="${PV/_beta/Beta}"
+#MY_PV="${PV/_beta/Beta}"
 MY_PV="${MY_PV//_pre*}"
 
 MY_P="${PN/sab/SAB}-${MY_PV}"
