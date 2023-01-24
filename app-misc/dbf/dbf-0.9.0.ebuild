@@ -6,11 +6,11 @@ EAPI=8
 
 inherit autotools
 
-MY_COMMIT="d86e1dfb1e70f61b9227817dbccd20955cd8a86a"
+MY_COMMIT="8c1df2e694ca81a2c2ff1d7de150629e69092ea1"
 
-DESCRIPTION="Library to read the content of dBASE III, IV, and 5.0 files"
-HOMEPAGE="https://github.com/rollinhand/libdbf"
-SRC_URI="https://github.com/rollinhand/libdbf/archive/${MY_COMMIT}.tar.gz -> ${P}.tgz"
+DESCRIPTION="Command line tool to read the content of dBASE III, IV, and 5.0 files"
+HOMEPAGE="https://github.com/rollinhand/dbf-core"
+SRC_URI="https://github.com/rollinhand/dbf-core/archive/${MY_COMMIT}.tar.gz -> ${P}.tgz"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -20,13 +20,17 @@ IUSE="doc"
 RDEPEND=""
 DEPEND="${RDEPEND}
 	dev-perl/XML-Parser
+	dev-libs/libdbf
 	doc? ( app-text/docbook-sgml-utils )
 	virtual/pkgconfig"
 
-S="${WORKDIR}/${PN}-${MY_COMMIT}"
+S="${WORKDIR}/${PN}-core-${MY_COMMIT}"
 
 src_prepare() {
 	default
+	if use doc; then
+		sed -i -e 's|docbook-to-man|docbook2man|g' man/Makefile.am || die
+	fi
 	eautoreconf
 }
 
@@ -35,6 +39,10 @@ src_configure() {
 		export DOC_TO_MAN=docbook2man
 	fi
 	econf
+	emake
+	if use doc; then
+		mv man/DBF.SECTION man/dbf.1 || die "Error moving man page"
+	fi
 }
 
 src_install() {
