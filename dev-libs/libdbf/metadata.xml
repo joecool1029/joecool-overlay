@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<herd>no-herd</herd>
-<maintainer><email>maintainer-wanted@gentoo.org</email></maintainer>
+<maintainer type="person">
+	<email>joe@wt.gd</email>
+	<name>joecool</name>
+</maintainer>
+<upstream>
+	<remote-id type="github">rollinhand/libdbf</remote-id>
+</upstream>
+<use>
+	<flag name="doc">Include documentation</flag>
+</use>
 </pkgmetadata>
