@@ -17,11 +17,9 @@ S="${WORKDIR}/${MY_P}"
 LICENSE="BSD GPL-3-with-openssl-exception LGPL-2+"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64 ~ppc64 ~riscv"
-IUSE="+dbus enchant +fonts +hunspell +jemalloc screencast +spell qt6 qt6-imageformats wayland +X"
+IUSE="+dbus enchant +fonts +hunspell +jemalloc screencast qt6 qt6-imageformats wayland +X"
 REQUIRED_USE="
-	spell? (
-		^^ ( enchant hunspell )
-	)
+	^^ ( enchant hunspell )
 	qt6-imageformats? ( qt6 )
 "
 
@@ -89,7 +87,7 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}/tdesktop-4.2.4-jemalloc-only-telegram.patch"
 	"${FILESDIR}/tdesktop-4.4.1-fix-dupe-main-decl.patch"
-	"${FILESDIR}/tdesktop-4.6.0-add-missing-cmath.patch"
+	"${FILESDIR}/tdesktop-4.6.2-missinginclude.patch"
 )
 
 # Current desktop-file-utils-0.26 does not understand Version=1.5
@@ -137,7 +135,6 @@ src_configure() {
 		-DDESKTOP_APP_DISABLE_X11_INTEGRATION=$(usex !X)
 		-DDESKTOP_APP_DISABLE_WAYLAND_INTEGRATION=$(usex !wayland)
 		-DDESKTOP_APP_DISABLE_JEMALLOC=$(usex !jemalloc)
-		-DDESKTOP_APP_DISABLE_SPELLCHECK=$(usex !spell)  # enables hunspell (recommended)
 		-DDESKTOP_APP_USE_ENCHANT=$(usex enchant)  # enables enchant and disables hunspell
 		-DDESKTOP_APP_USE_PACKAGED_FONTS=$(usex !fonts)  # use system fonts instead of bundled ones
 	)
