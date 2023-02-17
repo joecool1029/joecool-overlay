@@ -1,0 +1,20 @@
+diff --git a/reedsolomon.cpp b/reedsolomon.cpp
+index a1647d9..846ae98 100644
+--- a/reedsolomon.cpp
++++ b/reedsolomon.cpp
+@@ -278,7 +278,6 @@ template <> bool ReedSolomon<Galois16>::SetInput(u32 count)
+ 
+   #if __GNUC__ && (__i386__ || __x86_64__)
+     #include <sys/types.h>
+-    #include <sys/sysctl.h>
+ 
+     #if __x86_64__
+       extern "C" void rs_process_x86_64_scalar(void* dst, const void* src, size_t size, const u32* LH);
+@@ -297,7 +296,6 @@ template <> bool ReedSolomon<Galois16>::SetInput(u32 count)
+ 
+   #if __GNUC__ && (__i386__ || __x86_64__)
+     #include <sys/types.h>
+-    #include <sys/sysctl.h>
+ 
+     #if __x86_64__
+   extern "C" void rs_process_x86_64_mmx(void* dst, const void* src, size_t size, const u32* LH);
