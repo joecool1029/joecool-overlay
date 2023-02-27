@@ -8,8 +8,8 @@ PYTHON_REQ_USE="sqlite"
 
 inherit optfeature python-single-r1 systemd
 
-MY_PV="${PV/_rc/RC}"
-#MY_PV="${PV/_beta/Beta}"
+MY_PV="${PV/_alpha/Alpha}"
+MY_PV="${MY_PV/_rc/RC}"
 MY_PV="${MY_PV//_pre*}"
 
 MY_P="${PN/sab/SAB}-${MY_PV}"
@@ -41,7 +41,9 @@ DEPEND="
 		dev-python/notify2[${PYTHON_USEDEP}]
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
-		~dev-python/sabyenc-5.4.4[${PYTHON_USEDEP}]
+		~dev-python/sabyenc-6.1.0[${PYTHON_USEDEP}]
+		dev-python/tavalidate[${PYTHON_USEDEP}]
+		>=dev-python/tavern-2[${PYTHON_USEDEP}]
 	')
 "
 RDEPEND="
@@ -61,8 +63,6 @@ BDEPEND="
 			dev-python/pytest[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
 			dev-python/selenium[${PYTHON_USEDEP}]
-			dev-python/tavalidate[${PYTHON_USEDEP}]
-			dev-python/tavern[${PYTHON_USEDEP}]
 			dev-python/werkzeug[${PYTHON_USEDEP}]
 			dev-python/xmltodict[${PYTHON_USEDEP}]
 		')
@@ -86,6 +86,8 @@ src_test() {
 		# network sandbox
 		'tests/test_cfg.py::TestValidators::test_validate_host'
 		'tests/test_consistency.py::TestWiki'
+		# Doesn't work, complains mocker missing even when pytest-mock installed
+		'tests/test_dirscanner.py::TestDirScanner'
 		# Just plain fails
 		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
 		# Chromedriver tests don't want to behave in portage
@@ -106,6 +108,8 @@ src_test() {
 		'tests/test_functional_misc.py::TestDaemonizing::test_daemonizing'
 	)
 
+	local -x PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
+	local -x PYTEST_PLUGINS=tavern._core.pytest
 	epytest -s
 }
 
