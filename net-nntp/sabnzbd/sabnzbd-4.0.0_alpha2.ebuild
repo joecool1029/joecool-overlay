@@ -42,9 +42,12 @@ DEPEND="
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
 		~dev-python/sabyenc-6.1.0[${PYTHON_USEDEP}]
-		dev-python/tavalidate[${PYTHON_USEDEP}]
-		>=dev-python/tavern-2[${PYTHON_USEDEP}]
 	')
+		test? ( $(python_gen_cond_dep '
+				dev-python/tavalidate[${PYTHON_USEDEP}]
+				>=dev-python/tavern-2[${PYTHON_USEDEP}]
+			')
+		)
 "
 RDEPEND="
 	${DEPEND}
