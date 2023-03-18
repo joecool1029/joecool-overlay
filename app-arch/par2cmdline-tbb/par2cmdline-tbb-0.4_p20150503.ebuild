@@ -14,7 +14,10 @@ KEYWORDS="~amd64 ~x86"
 PATCHES="${FILESDIR}"/${PN}-dropsysctl.patch
 
 DEPEND="~dev-cpp/tbb-2020.3"
-RDEPEND="!app-arch/par2cmdline"
+RDEPEND="
+	!app-arch/par2cmdline
+	!app-arch/par2cmdline-turbo
+"
 
 S="${WORKDIR}/par2cmdline-0.4"
 

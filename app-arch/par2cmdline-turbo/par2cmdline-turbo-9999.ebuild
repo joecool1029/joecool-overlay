@@ -20,6 +20,11 @@ LICENSE="GPL-2"
 SLOT="0"
 IUSE="openmp"
 
+RDEPEND="
+	!app-arch/par2cmdline
+	!app-arch/par2cmdline-tbb
+"
+
 pkg_pretend() {
 	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
 }
