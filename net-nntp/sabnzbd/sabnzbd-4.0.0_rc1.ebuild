@@ -93,6 +93,7 @@ src_test() {
 		# network sandbox
 		'tests/test_cfg.py::TestValidators::test_validate_host'
 		'tests/test_consistency.py::TestWiki'
+		'tests/test_newswrapper.py::TestNewsWrapper'
 		# Doesn't work, complains mocker missing even when pytest-mock installed
 		'tests/test_dirscanner.py::TestDirScanner'
 		# Just plain fails
@@ -113,6 +114,7 @@ src_test() {
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
 		'tests/test_functional_misc.py::TestDaemonizing::test_daemonizing'
+		'tests/test_functional_sorting.py::TestDownloadSorting'
 	)
 
 	local -x PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
