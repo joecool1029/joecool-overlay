@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person" proxied="yes">
+    		<email>joe@wt.gd</email>
+		<name>Joe Kappus</email>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">animetosho/par2cmdline-turbo</remote-id>
+	</upstream>
+</pkgmetadata>
