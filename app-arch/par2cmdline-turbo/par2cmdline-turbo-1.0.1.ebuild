@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -6,10 +6,10 @@ EAPI=8
 inherit autotools toolchain-funcs
 
 if [[ ${PV} == 9999 ]]; then
-        inherit git-r3
-        EGIT_REPO_URI="https://github.com/animetosho/par2cmdline-turbo"
+	inherit git-r3
+	EGIT_REPO_URI="https://github.com/animetosho/par2cmdline-turbo"
 else
-	SRC_URI="https://github.com/animetosho/${PN}/archive/refs/tags/v${PV}.tar.gz"
+	SRC_URI="https://github.com/animetosho/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 	KEYWORDS="~amd64 ~arm64 ~x86 ~amd64-linux"
 fi
 
