@@ -20,10 +20,14 @@ DEPEND="
 "
 BDEPEND="
 	${DEPEND}
-	>=sys-devel/gcc-9[d]
+	>=sys-devel/gcc-12[d]
 "
 SRC_URI="https://codeload.github.com/abraunegg/onedrive/tar.gz/v${PV} -> ${P}.tar.gz"
 IUSE="debug libnotify"
+
+src_configure() {
+	econf "--disable-version-check"
+}
 
 src_install() {
 	emake DESTDIR="${D}" docdir=/usr/share/doc/${PF} install
