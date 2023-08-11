@@ -9,6 +9,8 @@ LICENSE="GPL-3"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
+PATCHES="${FILESDIR}"/${P}-gdc.patch
+
 RDEPEND="
 	>=dev-db/sqlite-3.7.15:3
 	net-misc/curl
@@ -20,14 +22,10 @@ DEPEND="
 "
 BDEPEND="
 	${DEPEND}
-	>=sys-devel/gcc-12[d]
+	>=sys-devel/gcc-12.1.0[d]
 "
 SRC_URI="https://codeload.github.com/abraunegg/onedrive/tar.gz/v${PV} -> ${P}.tar.gz"
 IUSE="debug libnotify"
-
-src_configure() {
-	econf "--disable-version-check"
-}
 
 src_install() {
 	emake DESTDIR="${D}" docdir=/usr/share/doc/${PF} install
