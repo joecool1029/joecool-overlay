@@ -9,7 +9,7 @@ LICENSE="GPL-3"
 
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-PATCHES="${FILESDIR}"/${P}-gdc.patch
+PATCHES="${DISTDIR}"/${P}-gdc.patch
 
 RDEPEND="
 	>=dev-db/sqlite-3.7.15:3
@@ -24,7 +24,9 @@ BDEPEND="
 	${DEPEND}
 	>=sys-devel/gcc-12.1.0[d]
 "
-SRC_URI="https://codeload.github.com/abraunegg/onedrive/tar.gz/v${PV} -> ${P}.tar.gz"
+SRC_URI="https://codeload.github.com/abraunegg/onedrive/tar.gz/v${PV} -> ${P}.tar.gz
+	https://raw.githubusercontent.com/joecool1029/joecool-overlay/2fc728ea6d0aaf1a89bbeabde1db9b0edd01b894/net-misc/onedrive/files/onedrive-2.4.25-gdc.patch"
+
 IUSE="debug libnotify"
 
 src_install() {
