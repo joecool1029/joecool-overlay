@@ -25,7 +25,7 @@ BDEPEND="
 	>=sys-devel/gcc-12.1.0[d]
 "
 SRC_URI="https://codeload.github.com/abraunegg/onedrive/tar.gz/v${PV} -> ${P}.tar.gz
-	https://raw.githubusercontent.com/joecool1029/joecool-overlay/2fc728ea6d0aaf1a89bbeabde1db9b0edd01b894/net-misc/onedrive/files/onedrive-2.4.25-gdc.patch"
+	https://raw.githubusercontent.com/joecool1029/joecool-overlay/2fc728ea6d0aaf1a89bbeabde1db9b0edd01b894/net-misc/onedrive/files/${P}-gdc.patch"
 
 IUSE="debug libnotify"
 
