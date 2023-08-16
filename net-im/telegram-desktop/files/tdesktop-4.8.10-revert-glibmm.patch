@@ -1075,3 +1075,31 @@
  				Glib::ustring("default-url-scheme-handler"),
  				Glib::ustring(protocol.toStdString()),
  				Glib::ustring(expectedHandler.toStdString()),
+--- b/Telegram/lib_ui/ui/platform/linux/ui_window_title_linux.cpp
++++ a/Telegram/lib_ui/ui/platform/linux/ui_window_title_linux.cpp
+@@ -6,14 +6,13 @@
+ //
+ #include "ui/platform/linux/ui_window_title_linux.h"
+ 
++#include "base/platform/linux/base_linux_glibmm_helper.h"
+ #include "base/platform/linux/base_linux_xdp_utilities.h"
+ 
+ #ifndef DESKTOP_APP_DISABLE_X11_INTEGRATION
+ #include "base/platform/linux/base_linux_xsettings.h"
+ #endif // !DESKTOP_APP_DISABLE_X11_INTEGRATION
+ 
+-#include <glibmm.h>
+-
+ namespace Ui {
+ namespace Platform {
+ namespace internal {
+@@ -121,7 +120,8 @@
+ 
+ 			return GtkKeywordsToTitleControlsLayout(
+ 				QString::fromStdString(
++					base::Platform::GlibVariantCast<Glib::ustring>(
++						*decorationLayout)));
+-					decorationLayout->get_dynamic<Glib::ustring>()));
+ 		} catch (...) {
+ 		}
+ 
