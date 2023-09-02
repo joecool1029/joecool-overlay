@@ -10,7 +10,7 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/animetosho/par2cmdline-turbo"
 else
 	SRC_URI="https://github.com/animetosho/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~arm64 ~x86 ~amd64-linux"
+	KEYWORDS="~amd64"
 fi
 
 DESCRIPTION="par2cmdline × ParPar: speed focused par2cmdline fork"
@@ -22,7 +22,6 @@ IUSE="openmp"
 
 RDEPEND="
 	!app-arch/par2cmdline
-	!app-arch/par2cmdline-tbb
 "
 
 pkg_pretend() {
@@ -38,7 +37,6 @@ src_prepare() {
 	eautoreconf
 }
 
-src_test() {
-	# test22 fails when run in parallel
-	emake -j1 check
+src_configure() {
+	econf $(use_enable openmp)
 }
