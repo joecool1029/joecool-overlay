@@ -3,7 +3,7 @@
 
 EAPI=8
 
-inherit autotools toolchain-funcs
+inherit autotools
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
@@ -24,19 +24,7 @@ RDEPEND="
 	!app-arch/par2cmdline
 "
 
-pkg_pretend() {
-	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
-}
-
-pkg_setup() {
-	[[ ${MERGE_TYPE} != binary ]] && use openmp && tc-check-openmp
-}
-
 src_prepare() {
 	default
 	eautoreconf
-}
-
-src_configure() {
-	econf $(use_enable openmp)
 }
