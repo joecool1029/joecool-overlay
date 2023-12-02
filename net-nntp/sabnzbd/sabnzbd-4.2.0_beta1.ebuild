@@ -3,7 +3,7 @@
 
 EAPI="8"
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{9..12} )
 PYTHON_REQ_USE="sqlite"
 
 inherit optfeature python-single-r1 systemd
@@ -42,7 +42,7 @@ DEPEND="
 		dev-python/notify2[${PYTHON_USEDEP}]
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
-		~dev-python/sabctools-7.1.2[${PYTHON_USEDEP}]
+		~dev-python/sabctools-8.0.0[${PYTHON_USEDEP}]
 	')
 		test? ( $(python_gen_cond_dep '
 				dev-python/tavalidate[${PYTHON_USEDEP}]
