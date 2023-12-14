@@ -93,6 +93,8 @@ src_test() {
 		'tests/test_cfg.py::TestValidators::test_validate_host'
 		'tests/test_consistency.py::TestWiki'
 		'tests/test_newswrapper.py::TestNewsWrapper'
+		'tests/test_happyeyeballs.py::TestHappyEyeballs'
+		'tests/test_internetspeed.py::TestInternetSpeed'
 		# Doesn't work, complains mocker missing even when pytest-mock installed
 		'tests/test_dirscanner.py::TestDirScanner'
 		# Just plain fails
