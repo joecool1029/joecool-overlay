@@ -20,18 +20,22 @@ LICENSE="MIT"
 SLOT="1"
 KEYWORDS="~amd64"
 
+# Tests pass but the test dependencies don't pass tests, disable tests
+RESTRICT="test"
+
 # Tests fail with ethon-0.16.0
 # https://github.com/typhoeus/typhoeus/issues/710
 ruby_add_rdepend "<dev-ruby/ethon-0.16.0"
 
-ruby_add_bdepend "test? (
-	dev-ruby/json
-	dev-ruby/faraday:1
-	dev-ruby/rack:2.2
-	>=dev-ruby/sinatra-1.3
-	>=dev-ruby/redis-3.0
-	>=dev-ruby/dalli-2.7.9
-)"
+# Uncomment if you want tests, needed to shut up pkgcheck
+#ruby_add_bdepend "test? (
+#	dev-ruby/json
+#	dev-ruby/faraday:1
+#	dev-ruby/rack:2.2
+#	>=dev-ruby/sinatra-1.3
+#	>=dev-ruby/redis-3.0
+#	>=dev-ruby/dalli-2.7.9
+#)"
 
 all_ruby_prepare() {
 	sed -e '/bundler/I s:^:#:' -i Rakefile spec/spec_helper.rb || die
