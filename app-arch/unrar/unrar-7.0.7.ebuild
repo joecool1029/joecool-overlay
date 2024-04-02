@@ -13,7 +13,7 @@ SRC_URI="https://www.rarlab.com/rar/${MY_PN}-${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/unrar"
 
 LICENSE="unRAR"
-SLOT="0/6" # subslot = soname version
+SLOT="0/7" # subslot = soname version
 KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
 
 PATCHES=( "${FILESDIR}/${PN}-6.2.6-honor-flags.patch" )
