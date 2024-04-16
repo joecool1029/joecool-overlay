@@ -32,6 +32,7 @@ DEPEND="
 	acct-group/sabnzbd
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
+		dev-python/apprise-1.7.6[${PYTHON_USEDEP}]
 		dev-python/chardet[${PYTHON_USEDEP}]
 		dev-python/cheetah3[${PYTHON_USEDEP}]
 		dev-python/cherrypy[${PYTHON_USEDEP}]
