@@ -32,6 +32,7 @@ DEPEND="
 	acct-group/sabnzbd
 	${PYTHON_DEPS}
 	$(python_gen_cond_dep '
+		>=dev-python/apprise-1.7.6[${PYTHON_USEDEP}]
 		dev-python/chardet[${PYTHON_USEDEP}]
 		dev-python/cheetah3[${PYTHON_USEDEP}]
 		dev-python/cherrypy[${PYTHON_USEDEP}]
@@ -58,7 +59,7 @@ BDEPEND="
 		$(python_gen_cond_dep '
 			dev-python/flaky[${PYTHON_USEDEP}]
 			>=dev-python/lxml-4.5.0[${PYTHON_USEDEP}]
-			dev-python/pyfakefs[${PYTHON_USEDEP}]
+			<dev-python/pyfakefs-5.4.0[${PYTHON_USEDEP}]
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
 			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
 			dev-python/pytest-mock[${PYTHON_USEDEP}]
