@@ -43,7 +43,7 @@ DEPEND="
 		dev-python/notify2[${PYTHON_USEDEP}]
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
-		~dev-python/sabctools-8.1.0[${PYTHON_USEDEP}]
+		~dev-python/sabctools-8.2.0[${PYTHON_USEDEP}]
 	')
 "
 RDEPEND="
@@ -60,6 +60,7 @@ BDEPEND="
 			dev-python/flaky[${PYTHON_USEDEP}]
 			>=dev-python/lxml-4.5.0[${PYTHON_USEDEP}]
 			<dev-python/pyfakefs-5.4.0[${PYTHON_USEDEP}]
+			dev-python/pytest-asyncio[${PYTHON_USEDEP}]
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
 			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
 			dev-python/pytest-mock[${PYTHON_USEDEP}]
