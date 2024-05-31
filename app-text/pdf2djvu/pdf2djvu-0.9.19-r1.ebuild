@@ -1,9 +1,9 @@
-# Copyright 1999-2023 Gentoo Authors
+# Copyright 1999-2024 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit toolchain-funcs
+inherit flag-o-matic toolchain-funcs
 
 DESCRIPTION="A tool to create DjVu files from PDF files"
 HOMEPAGE="https://github.com/jwilk-archive/pdf2djvu"
@@ -33,6 +33,8 @@ DOCS=(
 src_configure() {
 	local openmp=--disable-openmp
 	use openmp && tc-check-openmp && openmp=--enable-openmp
+
+	append-cxxflags "-std=c++20"
 
 	econf \
 		${openmp} \
