@@ -64,7 +64,7 @@ BDEPEND="
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
 			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
 			dev-python/pytest-mock[${PYTHON_USEDEP}]
-			~dev-python/pytest-7.4.4[${PYTHON_USEDEP}]
+			dev-python/pytest[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
 			dev-python/selenium[${PYTHON_USEDEP}]
 			dev-python/tavalidate[${PYTHON_USEDEP}]
@@ -97,6 +97,8 @@ src_test() {
 		'tests/test_internetspeed.py::TestInternetSpeed'
 		# Just plain fails
 		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
+		# Does not work with pytest-8.x
+		'tests/test_functional_api.py'
 		# Chromedriver tests don't want to behave in portage
 		'tests/test_functional_config.py::TestBasicPages::test_base_pages'
 		'tests/test_functional_config.py::TestBasicPages::test_base_submit_pages'
@@ -114,6 +116,10 @@ src_test() {
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
 		'tests/test_functional_misc.py::TestDaemonizing::test_daemonizing'
 		'tests/test_functional_sorting.py::TestDownloadSorting'
+		# Bug https://bugs.gentoo.org/934331 fixed in 4.3.3.
+		'tests/test_sorting.py::TestSortingSorter'
+		# cryptography-43, https://bugs.gentoo.org/938453
+		'tests/test_utils/test_cert_gen.py::TestCertGen::test_generate_key_custom[512-test_key.pem]'
 	)
 
 	# The test suite is prone to being broken by random plugins that happen
