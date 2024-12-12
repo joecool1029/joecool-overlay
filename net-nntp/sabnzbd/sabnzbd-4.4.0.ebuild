@@ -3,7 +3,8 @@
 
 EAPI="8"
 
-PYTHON_COMPAT=( python3_{10..13} )
+#dev-python/tavern needs py3.13 before incrementing
+PYTHON_COMPAT=( python3_{10..12} )
 PYTHON_REQ_USE="sqlite"
 
 inherit optfeature python-single-r1 systemd
