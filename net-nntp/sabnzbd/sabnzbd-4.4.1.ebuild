@@ -35,7 +35,7 @@ DEPEND="
 	$(python_gen_cond_dep '
 		>=dev-python/apprise-1.8.0[${PYTHON_USEDEP}]
 		dev-python/chardet[${PYTHON_USEDEP}]
-		=dev-python/cheetah3-3.4.0_beta6[${PYTHON_USEDEP}]
+		>=dev-python/cheetah3-3.4.0[${PYTHON_USEDEP}]
 		dev-python/cherrypy[${PYTHON_USEDEP}]
 		dev-python/configobj[${PYTHON_USEDEP}]
 		dev-python/cryptography[${PYTHON_USEDEP}]
