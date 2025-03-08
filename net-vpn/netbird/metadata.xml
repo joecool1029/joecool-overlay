@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-  <maintainer type="person">
-    <email>joe@wt.gd</email>
-    <description>Joe Kappus</description>
-  </maintainer>
+	<maintainer type="person">
+		<email>joe@wt.gd</email>
+		<description>Joe Kappus</description>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">netbirdio/netbird</remote-id>
+	</upstream>
 </pkgmetadata>
