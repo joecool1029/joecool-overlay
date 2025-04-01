@@ -33,10 +33,6 @@ BDEPEND="
 
 DOCS=( doc/rtorrent.rc )
 
-PATCHES=(
-#	"${FILESDIR}"/${PN}-0.15.1-tests-fix-arrays.patch
-)
-
 pkg_setup() {
 	if ! linux_config_exists || ! linux_chkconfig_present IPV6; then
 		ewarn "rtorrent will not start without IPv6 support in your kernel"
