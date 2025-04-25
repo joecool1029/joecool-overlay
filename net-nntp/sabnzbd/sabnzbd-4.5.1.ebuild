@@ -72,7 +72,7 @@ BDEPEND="
 			dev-python/werkzeug[${PYTHON_USEDEP}]
 			dev-python/xmltodict[${PYTHON_USEDEP}]
 		')
-		app-arch/p7zip
+		app-arch/7zip
 		app-arch/unrar
 		app-arch/unzip
 		www-apps/chromedriver-bin
@@ -112,14 +112,11 @@ src_test() {
 		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_passworded'
 		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_fully_obfuscated'
 		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_unicode_rar'
+		'tests/test_functional_misc.py::TestExtractPot::test_extract_pot'
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
 		'tests/test_functional_misc.py::TestDaemonizing::test_daemonizing'
 		'tests/test_functional_sorting.py::TestDownloadSorting'
-		# Bug https://bugs.gentoo.org/934331 fixed in 4.3.3.
-		'tests/test_sorting.py::TestSortingSorter'
-		# cryptography-43, https://bugs.gentoo.org/938453
-		'tests/test_utils/test_cert_gen.py::TestCertGen::test_generate_key_custom[512-test_key.pem]'
 	)
 
 	# The test suite is prone to being broken by random plugins that happen
@@ -173,7 +170,7 @@ pkg_postinst() {
 		einfo "By default, SABnzbd will listen on TCP port 8080."
 	fi
 
-	optfeature "7z archive support" app-arch/p7zip
+	optfeature "7z archive support" app-arch/7zip
 	optfeature "rar archive support" app-arch/unrar app-arch/rar
 	optfeature "zip archive support" app-arch/unzip
 }
