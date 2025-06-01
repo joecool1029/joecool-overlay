@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-        <maintainer type="person" proxied="yes">
+        <maintainer type="person">
                 <email>joe@wt.gd</email>
                 <name>Joe Kappus</name>
         </maintainer>
-        <maintainer type="project" proxied="proxy">
-                <email>proxy-maint@gentoo.org</email>
-                <name>Proxy Maintainers</name>
-        </maintainer>
         <use>
-                <flag name="debug">Honestly not sure</flag>
                 <flag name="libnotify">Add libnotify support</flag>
         </use>
         <upstream>
