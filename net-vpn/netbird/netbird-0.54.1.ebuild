@@ -12,7 +12,7 @@ HOMEPAGE="https://netbird.io/"
 SRC_URI="https://github.com/netbirdio/${PN}/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	http://joecool.ftfuchs.com/godeps/${P}-deps.tar.xz"
 
-LICENSE="BSD"
+LICENSE="AGPL-3 BSD"
 SLOT="0"
 
 KEYWORDS="~amd64"
