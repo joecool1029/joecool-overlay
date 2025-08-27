@@ -22,7 +22,7 @@ S="${WORKDIR}/${MY_P}"
 # Sabnzbd is GPL-2 but bundles software with the following licenses.
 LICENSE="GPL-2 BSD LGPL-2 MIT BSD-1"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 IUSE="test"
 RESTRICT="!test? ( test )"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
@@ -95,6 +95,7 @@ src_test() {
 		'tests/test_newswrapper.py::TestNewsWrapper'
 		'tests/test_happyeyeballs.py::TestHappyEyeballs'
 		'tests/test_internetspeed.py::TestInternetSpeed'
+		'tests/test_get_addrinfo.py'
 		# Just plain fails
 		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
 		# Does not work with pytest-8.x
