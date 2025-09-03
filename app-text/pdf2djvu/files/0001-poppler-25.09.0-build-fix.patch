@@ -1,0 +1,30 @@
+From eced1c758f8680c92c5ec9e5b67a9bcece043ae9 Mon Sep 17 00:00:00 2001
+From: Joe Kappus <joe@wt.gd>
+Date: Wed, 3 Sep 2025 17:43:01 -0400
+Subject: [PATCH] poppler 25.09.0 build fix
+
+Assign array to a pointer, fixes build with newer poppler.
+
+Used deepseek to figure it out.
+---
+ pdf-backend.cc | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index bb89c57..a96464f 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -181,7 +181,9 @@ static bool annotations_callback(pdf::ant::Annotation *annotation, void *user_da
+     border_colors.push_back("");
+     return true;
+   }
+-  const double *values = color->getValues();
++  // Get the color values as a std::array
++  std::array<double, 4> color_values = color->getValues();
++  const double *values = color_values.data(); // Get pointer to the array data
+   switch (color->getSpace())
+   {
+   case pdf::ant::Color::colorTransparent:
+-- 
+2.51.0
+
