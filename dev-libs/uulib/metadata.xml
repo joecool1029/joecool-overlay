@@ -2,7 +2,7 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<!-- maintainer-needed -->
-        <upstream>
-                <remote-id type="github">hannob/uudeview</remote-id>
-        </upstream>
+	<upstream>
+		<remote-id type="github">hannob/uudeview</remote-id>
+	</upstream>
 </pkgmetadata>
