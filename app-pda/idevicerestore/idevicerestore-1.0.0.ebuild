@@ -13,7 +13,8 @@ SLOT="0"
 KEYWORDS="~amd64"
 
 RDEPEND="
-	app-pda/libimobiledevice
+	>=app-pda/libimobiledevice-1.3.0
+	>=app-pda/libirecovery-1.0.0
 	net-misc/curl
 "
 DEPEND="${RDEPEND}"
