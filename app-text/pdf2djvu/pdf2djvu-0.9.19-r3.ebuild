@@ -1,9 +1,9 @@
-# Copyright 1999-2024 Gentoo Authors
+# Copyright 1999-2025 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
 
-inherit flag-o-matic toolchain-funcs
+inherit autotools flag-o-matic toolchain-funcs
 
 DESCRIPTION="A tool to create DjVu files from PDF files"
 HOMEPAGE="https://github.com/jwilk-archive/pdf2djvu"
@@ -16,7 +16,7 @@ IUSE="+graphicsmagick nls openmp"
 
 RDEPEND="
 	>=app-text/djvu-3.5.21:=
-	>=app-text/poppler-0.16.7:=
+	>=app-text/poppler-25.09.0:=
 	dev-libs/libxml2:=
 	dev-libs/libxslt:=
 	graphicsmagick? ( media-gfx/graphicsmagick:= )
@@ -28,6 +28,11 @@ DEPEND="${RDEPEND}
 
 DOCS=(
 	doc/{changelog,credits,djvudigital,README}
+)
+
+PATCHES=(
+	"${FILESDIR}/poppler-25.08.0-build-fix.patch"
+	"${FILESDIR}/poppler-25.10.0-build-fix.patch"
 )
 
 src_configure() {

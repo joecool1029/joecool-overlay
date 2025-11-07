@@ -1,0 +1,43 @@
+From 04fc600ef6c7b790ffcd5256ddc2c606191245b7 Mon Sep 17 00:00:00 2001
+From: "dependabot[bot]" <49699333+dependabot[bot]@users.noreply.github.com>
+Date: Mon, 18 Aug 2025 16:24:42 +0200
+
+Dropping EOL Ubuntu 20.04 and add support for new Poppler versions.
+
+Signed-off-by: dependabot[bot] <support@github.com>
+Co-authored-by: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Co-authored-by: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+---
+
+diff --git a/main.cc b/main.cc
+index 1d9ab4f1..252d6170 100644
+--- a/main.cc
++++ b/main.cc
+@@ -528,6 +528,11 @@ class MutedRenderer: public pdf::Renderer
+     case actionResetForm:
+       debug(1) << _("Warning: Unable to convert link with a reset-form action") << std::endl;
+       return;
++#endif
++#if POPPLER_VERSION >= 241000
++    case actionSubmitForm:
++      debug(1) << _("Warning: Unable to convert link with a submit-form action") << std::endl;
++      return;
+ #endif
+     case actionUnknown:
+     default:
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index bb89c574..51943e63 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -181,7 +181,11 @@ static bool annotations_callback(pdf::ant::Annotation *annotation, void *user_da
+     border_colors.push_back("");
+     return true;
+   }
++#if POPPLER_VERSION > 250800
++  const double *values = color->getValues().data();
++#else
+   const double *values = color->getValues();
++#endif
+   switch (color->getSpace())
+   {
+   case pdf::ant::Color::colorTransparent:
