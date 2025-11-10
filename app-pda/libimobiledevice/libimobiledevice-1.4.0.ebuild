@@ -40,7 +40,7 @@ src_configure() {
 		--without-cython
 		$(use_enable static-libs static)
 	)
-	use gnutls && myeconfargs+=( --disable-openssl )
+	use gnutls && myeconfargs+=( --with-gnutls --without-openssl )
 	# --with-readline also causes readline to not be used
 	use readline || myeconfargs+=( --without-readline )
 	econf "${myeconfargs[@]}"
