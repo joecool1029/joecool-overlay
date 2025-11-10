@@ -9,7 +9,7 @@ EGIT_REPO_URI="https://github.com/libimobiledevice/idevicerestore.git"
 DESCRIPTION="Restore/upgrade firmware of iOS devices"
 HOMEPAGE="https://github.com/libimobiledevice/idevicerestore"
 
-LICENSE="GPL-2"
+LICENSE="LGPL-3"
 SLOT="0"
 
 #KEYWORDS="~amd64"

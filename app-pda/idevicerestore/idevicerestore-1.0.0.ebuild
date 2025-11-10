@@ -7,7 +7,7 @@ DESCRIPTION="Restore/upgrade firmware of iOS devices"
 HOMEPAGE="https://github.com/libimobiledevice/idevicerestore"
 SRC_URI="https://github.com/libimobiledevice/${PN}/releases/download/${PV}/${P}.tar.bz2"
 
-LICENSE="GPL-2"
+LICENSE="LGPL-3"
 SLOT="0"
 
 KEYWORDS="~amd64"
