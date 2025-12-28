@@ -15,8 +15,7 @@ SRC_URI="https://github.com/netbirdio/${PN}/archive/refs/tags/v${PV}.tar.gz -> $
 LICENSE="AGPL-3 BSD"
 SLOT="0"
 
-# I have no idea wtf is going on, but this version compiles and will not install
-#KEYWORDS="~amd64"
+KEYWORDS="~amd64"
 
 src_compile() {
 	cd client || die
@@ -26,5 +25,5 @@ src_compile() {
 src_install() {
 	dobin client/netbird
 
-	default
+	einstalldocs
 }
