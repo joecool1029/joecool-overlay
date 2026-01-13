@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -33,7 +33,13 @@ DOCS=(
 PATCHES=(
 	"${FILESDIR}/poppler-25.08.0-build-fix.patch"
 	"${FILESDIR}/poppler-25.10.0-build-fix.patch"
+	"${FILESDIR}/poppler-26.01.0-build-fix.patch"
 )
+
+src_prepare() {
+   default
+   eautoreconf
+}
 
 src_configure() {
 	local openmp=--disable-openmp

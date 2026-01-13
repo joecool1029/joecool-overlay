@@ -1,0 +1,329 @@
+From f9da9679506c9c77418331ca4930616db8665e8f Mon Sep 17 00:00:00 2001
+From: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+Date: Tue, 16 Dec 2025 18:31:19 +0100
+Subject: [PATCH] Make compatible to latest Poppler
+
+---
+ configure.ac   |  2 +-
+ main.cc        | 20 ++++++++++----------
+ pdf-backend.cc | 27 ++++++++++++++++-----------
+ pdf-backend.hh |  6 +++---
+ pdf-dpi.cc     |  2 +-
+ pdf-unicode.cc |  2 +-
+ 6 files changed, 32 insertions(+), 27 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 6f116302..f38acb9b 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -95,7 +95,7 @@ AS_IF(
+   [:],
+   [AC_MSG_ERROR([could not parse Poppler version])]
+ )
+-AC_DEFINE_UNQUOTED([POPPLER_VERSION], [$poppler_version], [Define to the version of Poppler, as integer])
++AC_DEFINE_UNQUOTED([POPPLER_VERSION_NUMBER], [$poppler_version], [Define to the version of Poppler, as integer])
+ AC_MSG_CHECKING([for Poppler xpdf headers])
+ original_cppflags="$CPPFLAGS"
+ CPPFLAGS="$CPPFLAGS $POPPLER_CFLAGS"
+diff --git a/main.cc b/main.cc
+index 252d6170..1c9b6c70 100644
+--- a/main.cc
++++ b/main.cc
+@@ -76,13 +76,13 @@ class NoLinkDestination : public std::runtime_error
+ static int get_page_for_goto_link(pdf::link::GoTo *goto_link, pdf::Catalog *catalog)
+ {
+   std::unique_ptr<pdf::link::Destination> dest;
+-#if POPPLER_VERSION >= 6400
++#if POPPLER_VERSION_NUMBER >= 6400
+   const
+ #endif
+   pdf::link::Destination *orig_dest = goto_link->getDest();
+   if (orig_dest == nullptr)
+   {
+-#if POPPLER_VERSION >= 8600
++#if POPPLER_VERSION_NUMBER >= 8600
+     dest = catalog->findDest(goto_link->getNamedDest());
+ #else
+     dest.reset(catalog->findDest(goto_link->getNamedDest()));
+@@ -341,7 +341,7 @@ class MutedRenderer: public pdf::Renderer
+     return;
+   }
+ 
+-#if POPPLER_VERSION >= 8200
++#if POPPLER_VERSION_NUMBER >= 8200
+   void drawImage(pdf::gfx::State *state, pdf::Object *object, pdf::Stream *stream, int width, int height,
+     pdf::gfx::ImageColorMap *color_map, bool interpolate, const int *mask_colors, bool inline_image)
+ #else
+@@ -389,7 +389,7 @@ class MutedRenderer: public pdf::Renderer
+ 
+   bool interpretType3Chars() { return false; }
+ 
+-#if POPPLER_VERSION >= 8200
++#if POPPLER_VERSION_NUMBER >= 8200
+   void drawChar(pdf::gfx::State *state, double x, double y, double dx, double dy, double origin_x, double origin_y,
+     CharCode code, int n_bytes, const Unicode *unistr, int length)
+ #else
+@@ -475,7 +475,7 @@ class MutedRenderer: public pdf::Renderer
+     switch (link_action->getKind())
+     {
+     case actionURI:
+-#if POPPLER_VERSION >= 8600
++#if POPPLER_VERSION_NUMBER >= 8600
+       uri = dynamic_cast<pdf::link::URI*>(link_action)->getURI();
+ #else
+       uri += pdf::get_c_string(dynamic_cast<pdf::link::URI*>(link_action)->getURI());
+@@ -519,17 +519,17 @@ class MutedRenderer: public pdf::Renderer
+       // L10N: OCG stands for “Optional Content Group” (see PDF Reference v1.7, §4.10.1)
+       debug(1) << _("Warning: Unable to convert link with a set-OCG-state action") << std::endl;
+       return;
+-#if POPPLER_VERSION >= 6400
++#if POPPLER_VERSION_NUMBER >= 6400
+     case actionHide:
+       debug(1) << _("Warning: Unable to convert link with a hide action") << std::endl;
+       return;
+ #endif
+-#if POPPLER_VERSION >= 8900
++#if POPPLER_VERSION_NUMBER >= 8900
+     case actionResetForm:
+       debug(1) << _("Warning: Unable to convert link with a reset-form action") << std::endl;
+       return;
+ #endif
+-#if POPPLER_VERSION >= 241000
++#if POPPLER_VERSION_NUMBER >= 241000
+     case actionSubmitForm:
+       debug(1) << _("Warning: Unable to convert link with a submit-form action") << std::endl;
+       return;
+@@ -729,7 +729,7 @@ static void pdf_outline_to_djvu_outline(pdf::Object *node, pdf::Catalog *catalog
+         std::unique_ptr<pdf::link::Action> link_action;
+         if (!pdf::dict_lookup(current, "Dest", &destination)->isNull())
+         {
+-#if POPPLER_VERSION >= 8600
++#if POPPLER_VERSION_NUMBER >= 8600
+           link_action = pdf::link::Action::parseDest(&destination);
+ #else
+           link_action.reset(pdf::link::Action::parseDest(&destination));
+@@ -737,7 +737,7 @@ static void pdf_outline_to_djvu_outline(pdf::Object *node, pdf::Catalog *catalog
+         }
+         else if (!pdf::dict_lookup(current, "A", &destination)->isNull())
+         {
+-#if POPPLER_VERSION >= 8600
++#if POPPLER_VERSION_NUMBER >= 8600
+           link_action = pdf::link::Action::parseAction(&destination);
+ #else
+           link_action.reset(pdf::link::Action::parseAction(&destination));
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index 51943e63..36f9deea 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -48,7 +48,7 @@
+  * ======================
+  */
+ 
+-#if POPPLER_VERSION >= 8500
++#if POPPLER_VERSION_NUMBER >= 8500
+ static void poppler_error_handler(ErrorCategory category, pdf::Offset pos, const char *message)
+ #else
+ static void poppler_error_handler(void *data, ErrorCategory category, pdf::Offset pos, const char *message)
+@@ -97,7 +97,7 @@ static void poppler_error_handler(void *data, ErrorCategory category, pdf::Offse
+   error_log << std::endl;
+ }
+ 
+-#if POPPLER_VERSION < 7000
++#if POPPLER_VERSION_NUMBER < 7000
+ static void poppler_error_handler(void *data, ErrorCategory category, pdf::Offset pos, char *message)
+ {
+   poppler_error_handler(data, category, pos, const_cast<const char *>(message));
+@@ -106,12 +106,12 @@ static void poppler_error_handler(void *data, ErrorCategory category, pdf::Offse
+ 
+ pdf::Environment::Environment()
+ {
+-#if POPPLER_VERSION >= 8300
++#if POPPLER_VERSION_NUMBER >= 8300
+   globalParams = std::unique_ptr<GlobalParams>(new GlobalParams);
+ #else
+   globalParams = new GlobalParams;
+ #endif
+-#if POPPLER_VERSION >= 8500
++#if POPPLER_VERSION_NUMBER >= 8500
+   setErrorCallback(poppler_error_handler);
+ #else
+   setErrorCallback(poppler_error_handler, nullptr);
+@@ -129,7 +129,7 @@ void pdf::Environment::set_antialias(bool value)
+  */
+ 
+ pdf::Document::Document(const std::string &file_name)
+-#if POPPLER_VERSION >= 220300
++#if POPPLER_VERSION_NUMBER >= 220300
+ : ::PDFDoc(std::make_unique<pdf::String>(file_name.c_str()))
+ #else
+ : ::PDFDoc(new pdf::String(file_name.c_str()))
+@@ -181,7 +181,7 @@ static bool annotations_callback(pdf::ant::Annotation *annotation, void *user_da
+     border_colors.push_back("");
+     return true;
+   }
+-#if POPPLER_VERSION > 250800
++#if POPPLER_VERSION_NUMBER > 250800
+   const double *values = color->getValues().data();
+ #else
+   const double *values = color->getValues();
+@@ -236,7 +236,7 @@ void pdf::Document::get_page_size(int n, bool crop, double &width, double &heigh
+ const std::string pdf::Document::get_xmp()
+ {
+   std::unique_ptr<const pdf::String> mstring;
+-#if POPPLER_VERSION >= 211000
++#if POPPLER_VERSION_NUMBER >= 211000
+   mstring = this->readMetadata();
+ #else
+   mstring.reset(this->readMetadata());
+@@ -503,7 +503,12 @@ bool pdf::get_glyph(splash::Splash *splash, splash::Font *font,
+   if (font == nullptr)
+     return false;
+   splash::ClipResult clip_result;
++#if POPPLER_VERSION_NUMBER > 251200
++  SplashClip* clip_ptr = const_cast<SplashClip*>(&splash->getClip());
++  if (!font->getGlyph(code, 0, 0, bitmap, static_cast<int>(x), static_cast<int>(y), clip_ptr, &clip_result))
++#else
+   if (!font->getGlyph(code, 0, 0, bitmap, static_cast<int>(x), static_cast<int>(y), splash->getClip(), &clip_result))
++#endif
+     return false;
+   return (clip_result != splashClipAllOutside);
+ }
+@@ -516,13 +521,13 @@ bool pdf::get_glyph(splash::Splash *splash, splash::Font *font,
+ void pdf::Renderer::convert_path(pdf::gfx::State *state, splash::Path &splash_path)
+ {
+   /* Source was copied from <poppler/SplashOutputDev.c>. */
+-  // for POPPLER_VERSION >= 8300:
++  // for POPPLER_VERSION_NUMBER >= 8300:
+   //   const pdf::gfx::Path *path
+   auto path = state->getPath();
+   int n_subpaths = path->getNumSubpaths();
+   for (int i = 0; i < n_subpaths; i++)
+   {
+-    // for POPPLER_VERSION >= 8300:
++    // for POPPLER_VERSION_NUMBER >= 8300:
+     //   const pdf::gfx::Subpath *subpath
+     auto subpath = path->getSubpath(i);
+     if (subpath->getNumPoints() > 0)
+@@ -631,7 +636,7 @@ namespace pdf
+   }
+ }
+ 
+-#if POPPLER_VERSION >= 7200
++#if POPPLER_VERSION_NUMBER >= 7200
+ const char * pdf::get_c_string(const pdf::String *str)
+ {
+   return str->c_str();
+@@ -645,7 +650,7 @@ const char * pdf::get_c_string(const pdf::String *str)
+ 
+ int pdf::find_page(pdf::Catalog *catalog, pdf::Ref pgref)
+ {
+-#if POPPLER_VERSION >= 7600
++#if POPPLER_VERSION_NUMBER >= 7600
+   return catalog->findPage(pgref);
+ #else
+   return catalog->findPage(pgref.num, pgref.gen);
+diff --git a/pdf-backend.hh b/pdf-backend.hh
+index 80f18db1..2f343a0e 100644
+--- a/pdf-backend.hh
++++ b/pdf-backend.hh
+@@ -236,12 +236,12 @@ namespace pdf
+         this->byte_width = width * 3;
+         break;
+       case splashModeXBGR8:
+-#if POPPLER_VERSION >= 8100 || defined(SPLASH_CMYK)
++#if POPPLER_VERSION_NUMBER >= 8100 || defined(SPLASH_CMYK)
+       case splashModeCMYK8:
+ #endif
+         this->byte_width = width * 4;
+         break;
+-#if POPPLER_VERSION >= 8100 || defined(SPLASH_CMYK)
++#if POPPLER_VERSION_NUMBER >= 8100 || defined(SPLASH_CMYK)
+       case splashModeDeviceN8:
+ #endif
+       default:
+@@ -296,7 +296,7 @@ namespace pdf
+     const std::string get_xmp();
+     void get_doc_info(pdf::Object &info)
+     {
+-#if POPPLER_VERSION < 5800
++#if POPPLER_VERSION_NUMBER < 5800
+       this->getDocInfo(&info);
+ #else
+       info = this->getDocInfo();
+diff --git a/pdf-dpi.cc b/pdf-dpi.cc
+index 335f0689..003b82ea 100644
+--- a/pdf-dpi.cc
++++ b/pdf-dpi.cc
+@@ -33,7 +33,7 @@ class DpiGuessDevice : public pdf::OutputDevice
+     this->process_image(state, width, height);
+   }
+ 
+-#if POPPLER_VERSION >= 8200
++#if POPPLER_VERSION_NUMBER >= 8200
+   virtual void drawImage(pdf::gfx::State *state, pdf::Object *object, pdf::Stream *stream, int width, int height,
+     pdf::gfx::ImageColorMap *color_map, bool interpolate, const int *mask_colors, bool inline_image)
+ #else
+diff --git a/pdf-unicode.cc b/pdf-unicode.cc
+index d60560f1..53361229 100644
+--- a/pdf-unicode.cc
++++ b/pdf-unicode.cc
+@@ -49,7 +49,7 @@ std::string pdf::string_as_utf8(const pdf::String *string)
+      */
+     const static uint32_t replacement_character = 0xFFFD;
+     const char *cstring = pdf::get_c_string(string);
+-#if POPPLER_VERSION > 251000
++#if POPPLER_VERSION_NUMBER > 251000
+     size_t clength = string->size();
+ #else
+     size_t clength = string->getLength();
+From 7d36df9320d870a5cbcf1937a70b7f1695de95da Mon Sep 17 00:00:00 2001
+From: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+Date: Sun, 11 Jan 2026 12:16:28 +0100
+Subject: [PATCH] fix for Poppler > 26.01.0
+
+Reference: https://gitlab.freedesktop.org/poppler/poppler/-/commit/6ef3154e307afff6adad7a83c5b854adc1e10b5c
+---
+ pdf-backend.cc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index 36f9deea..fe13ea0a 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -474,7 +474,11 @@ void pdf::set_color(splash::Color &result, uint8_t r, uint8_t g, uint8_t b)
+ bool pdf::Environment::antialias = false;
+ 
+ pdf::Renderer::Renderer(pdf::splash::Color &paper_color, bool monochrome)
++#if POPPLER_VERSION_NUMBER > 260100
++: pdf::splash::OutputDevice(monochrome ? splashModeMono1 : splashModeRGB8, 4, paper_color),
++#else
+ : pdf::splash::OutputDevice(monochrome ? splashModeMono1 : splashModeRGB8, 4, false, paper_color),
++#endif
+   catalog(NULL)
+ {
+   this->setFontAntialias(pdf::Environment::antialias);
+From a9a64f84b682df4253693bf8f199ff6ea9a41c2f Mon Sep 17 00:00:00 2001
+From: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+Date: Sun, 11 Jan 2026 12:30:14 +0100
+Subject: [PATCH] fix for Poppler > 26.01.0
+
+---
+ pdf-dpi.cc | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/pdf-dpi.cc b/pdf-dpi.cc
+index 003b82ea..605f0bc4 100644
+--- a/pdf-dpi.cc
++++ b/pdf-dpi.cc
+@@ -91,7 +91,11 @@ class DpiGuessDevice : public pdf::OutputDevice
+ 
+ void DpiGuessDevice::process_image(pdf::gfx::State *state, int width, int height)
+ {
++#if POPPLER_VERSION_NUMBER > 260100
++  const std::array<double, 6> &ctm = state->getCTM();
++#else
+   const double *ctm = state->getCTM();
++#endif
+   double h_dpi = 72.0 * width / hypot(ctm[0], ctm[1]);
+   double v_dpi = 72.0 * height / hypot(ctm[2], ctm[3]);
+   this->min_ = std::min(this->min_, std::min(h_dpi, v_dpi));
