@@ -34,6 +34,7 @@ PATCHES=(
 	"${FILESDIR}/poppler-25.08.0-build-fix.patch"
 	"${FILESDIR}/poppler-25.10.0-build-fix.patch"
 	"${FILESDIR}/poppler-26.01.0-build-fix.patch"
+	"${FILESDIR}/poppler-26.02.0-build-fix.patch"
 )
 
 src_prepare() {

@@ -1,0 +1,22 @@
+From 1f9347568a50a4d57bcf9027f9188dcc7d69ea94 Mon Sep 17 00:00:00 2001
+From: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+Date: Sun, 8 Feb 2026 11:54:30 +0100
+Subject: [PATCH] fix for Poppler 26.02.0
+
+---
+ pdf-backend.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index fe13ea0a..988c2b44 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -507,7 +507,7 @@ bool pdf::get_glyph(splash::Splash *splash, splash::Font *font,
+   if (font == nullptr)
+     return false;
+   splash::ClipResult clip_result;
+-#if POPPLER_VERSION_NUMBER > 251200
++#if POPPLER_VERSION_NUMBER > 251200 && POPPLER_VERSION_NUMBER < 260100
+   SplashClip* clip_ptr = const_cast<SplashClip*>(&splash->getClip());
+   if (!font->getGlyph(code, 0, 0, bitmap, static_cast<int>(x), static_cast<int>(y), clip_ptr, &clip_result))
+ #else
