@@ -17,6 +17,18 @@ SLOT="0"
 
 KEYWORDS="~amd64"
 
+src_prepare() {
+	default
+
+	# Fix gvisor build tag overlap: runtime_constants_go125.go matches
+	# Go 1.26+ too, causing redeclaration errors with runtime_constants_go126.go.
+	# Add !go1.26 constraint so only one file compiles per Go version.
+	local f="${WORKDIR}/go-mod/gvisor.dev/gvisor@v0.0.0-20251031020517-ecfcdd2f171c/pkg/sync/runtime_constants_go125.go"
+	if [[ -f "${f}" ]]; then
+		sed -i 's|//go:build go1\.25|//go:build go1.25 \&\& !go1.26|' "${f}" || die
+	fi
+}
+
 src_compile() {
 	cd client || die
 	ego build -ldflags "-X 'github.com/netbirdio/netbird/version.version=${PV}'" -o netbird || die
