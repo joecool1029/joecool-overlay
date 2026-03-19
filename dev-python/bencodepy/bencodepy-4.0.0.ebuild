@@ -25,4 +25,6 @@ BDEPEND="
 	dev-python/setuptools[${PYTHON_USEDEP}]
 "
 
+export PBR_VERSION=${PV}
+
 distutils_enable_tests pytest
