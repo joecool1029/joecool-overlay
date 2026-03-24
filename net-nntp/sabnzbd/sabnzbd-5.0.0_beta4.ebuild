@@ -65,7 +65,7 @@ BDEPEND="
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
 			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
 			dev-python/pytest-mock[${PYTHON_USEDEP}]
-			dev-python/pytest[${PYTHON_USEDEP}]
+			>=dev-python/pytest-9[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
 			dev-python/selenium[${PYTHON_USEDEP}]
 			dev-python/tavalidate[${PYTHON_USEDEP}]
@@ -86,6 +86,10 @@ src_test() {
 		tests/test_get_addrinfo.py
 		tests/test_getipaddress.py
 		tests/test_internetspeed.py
+		# chromedriver fails in portage env
+		tests/test_functional_config.py
+		tests/test_functional_downloads.py
+		tests/test_functional_sorting.py
 	)
 	local EPYTEST_DESELECT=(
 		# network sandbox
@@ -95,28 +99,15 @@ src_test() {
 		'tests/test_rss.py::TestRSS::test_rss_nzedb_parser'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_http_basic'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_https_basic'
-		# par2cmdline-turbo leaves extra files after repair
+		# par2cmdline-turbo threading race: parallel extra file scanning
+		# can miss matches, causing par2 to reconstruct instead of rename
 		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
-		# Does not work with pytest-8.x
-		'tests/test_functional_api.py'
-		# Chromedriver tests don't want to behave in portage
-		'tests/test_functional_config.py::TestBasicPages::test_base_pages'
-		'tests/test_functional_config.py::TestBasicPages::test_base_submit_pages'
-		'tests/test_functional_config.py::TestConfigLogin::test_login'
-		'tests/test_functional_config.py::TestConfigCategories::test_page'
-		'tests/test_functional_config.py::TestConfigRSS::test_rss_basic_flow'
-		'tests/test_functional_config.py::TestConfigServers::test_add_and_remove_server'
-		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_basic_rar5'
-		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_zip'
-		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_7zip'
-		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_passworded'
-		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_fully_obfuscated'
-		'tests/test_functional_downloads.py::TestDownloadFlow::test_download_unicode_rar'
-		'tests/test_functional_misc.py::TestExtractPot::test_extract_pot'
+		# Requires chromedriver
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
 		'tests/test_functional_misc.py::TestDaemonizing::test_daemonizing'
-		'tests/test_functional_sorting.py::TestDownloadSorting'
+		# Runs extract_pot.py which needs the git repo
+		'tests/test_functional_misc.py::TestExtractPot::test_extract_pot'
 	)
 
 	# The test suite is prone to being broken by random plugins that happen
