@@ -86,7 +86,7 @@ src_test() {
 		tests/test_get_addrinfo.py
 		tests/test_getipaddress.py
 		tests/test_internetspeed.py
-		# chromedriver fails in portage env
+		# Requires chromedriver + Chrome, not available in portage
 		tests/test_functional_config.py
 		tests/test_functional_downloads.py
 		tests/test_functional_sorting.py
@@ -99,8 +99,9 @@ src_test() {
 		'tests/test_rss.py::TestRSS::test_rss_nzedb_parser'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_http_basic'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_https_basic'
-		# par2cmdline-turbo threading race: parallel extra file scanning
-		# can miss matches, causing par2 to reconstruct instead of rename
+		# par2cmdline fails to match extra files on some builds/environments,
+		# reconstructing from parity instead of renaming. Not turbo-specific.
+		# https://github.com/sabnzbd/sabnzbd/issues/2274
 		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
 		# Requires chromedriver
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
