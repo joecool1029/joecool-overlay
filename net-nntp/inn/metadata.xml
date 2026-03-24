@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<!-- maintainer-needed -->
+	<upstream>
+		<remote-id type="github">InterNetNews/inn</remote-id>
+	</upstream>
+	<use>
+		<flag name="canlock">Enable Cancel-Lock support via <pkg>net-libs/canlock</pkg></flag>
+		<flag name="innkeywords">Enable strstrn keyword generation in overview data</flag>
+		<flag name="inntaggedhash">Use tagged hash table for history database (slower but uses less memory, incompatible with largefiles)</flag>
+	</use>
+</pkgmetadata>
