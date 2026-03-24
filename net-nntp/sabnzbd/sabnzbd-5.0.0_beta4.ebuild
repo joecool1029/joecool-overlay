@@ -83,21 +83,19 @@ BDEPEND="
 src_test() {
 	local EPYTEST_IGNORE=(
 		# network sandbox
+		tests/test_get_addrinfo.py
 		tests/test_getipaddress.py
-		tests/test_rss.py
-		tests/test_urlgrabber.py
-		tests/test_utils/test_happyeyeballs.py
-		tests/test_utils/test_internetspeed.py
+		tests/test_internetspeed.py
 	)
 	local EPYTEST_DESELECT=(
 		# network sandbox
 		'tests/test_cfg.py::TestValidators::test_validate_host'
 		'tests/test_consistency.py::TestWiki'
-		'tests/test_newswrapper.py::TestNewsWrapper'
-		'tests/test_happyeyeballs.py::TestHappyEyeballs'
-		'tests/test_internetspeed.py::TestInternetSpeed'
-		'tests/test_get_addrinfo.py'
-		# Just plain fails
+		'tests/test_rss.py::TestRSS::test_rss_newznab_parser'
+		'tests/test_rss.py::TestRSS::test_rss_nzedb_parser'
+		'tests/test_urlgrabber.py::TestBuildRequest::test_http_basic'
+		'tests/test_urlgrabber.py::TestBuildRequest::test_https_basic'
+		# par2cmdline-turbo leaves extra files after repair
 		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
 		# Does not work with pytest-8.x
 		'tests/test_functional_api.py'
@@ -129,7 +127,7 @@ src_test() {
 	# if stuck, comment out the AUTOLOAD line above, look at the list of loaded
 	# plugins at the top of the pytest output, then translate those into module names
 	# by e.g. checking equery f.
-	local -x PYTEST_PLUGINS=pytest_mock,tavern,tavern._core.pytest,pyfakefs.pytest_plugin,pytest_asyncio.plugin
+	local -x PYTEST_PLUGINS=pytest_mock,tavern,tavern._core.pytest,pyfakefs.pytest_plugin,pytest_asyncio.plugin,pytest_httpserver.pytest_plugin,pytest_httpbin.plugin
 
 	epytest -s
 }
