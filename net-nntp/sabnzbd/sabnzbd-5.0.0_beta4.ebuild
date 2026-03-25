@@ -19,8 +19,9 @@ HOMEPAGE="https://sabnzbd.org/"
 SRC_URI="https://github.com/sabnzbd/sabnzbd/releases/download/${MY_PV}/${MY_P}-src.tar.gz"
 S="${WORKDIR}/${MY_P}"
 
-# Sabnzbd is GPL-2 but bundles software with the following licenses.
-LICENSE="GPL-2 BSD LGPL-2 MIT BSD-1"
+# SABnzbd is GPL-2+ but bundles JS/CSS libraries and Python modules
+# with their own licenses (Bootstrap, jQuery, Knockout, rarfile, etc).
+LICENSE="GPL-2+ Apache-2.0 CC-BY-3.0 ISC LGPL-2.1+ MIT"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="test"
@@ -59,24 +60,23 @@ BDEPEND="
 	test? (
 		$(python_gen_cond_dep '
 			dev-python/flaky[${PYTHON_USEDEP}]
-			>=dev-python/lxml-4.5.0[${PYTHON_USEDEP}]
-			>=dev-python/pyfakefs-5.6.0[${PYTHON_USEDEP}]
+			dev-python/lxml[${PYTHON_USEDEP}]
+			dev-python/pyfakefs[${PYTHON_USEDEP}]
 			dev-python/pytest-asyncio[${PYTHON_USEDEP}]
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
 			dev-python/pytest-httpserver[${PYTHON_USEDEP}]
 			dev-python/pytest-mock[${PYTHON_USEDEP}]
-			>=dev-python/pytest-9[${PYTHON_USEDEP}]
+			dev-python/pytest[${PYTHON_USEDEP}]
 			dev-python/requests[${PYTHON_USEDEP}]
 			dev-python/selenium[${PYTHON_USEDEP}]
 			dev-python/tavalidate[${PYTHON_USEDEP}]
-			>=dev-python/tavern-2[${PYTHON_USEDEP}]
+			>=dev-python/tavern-3[${PYTHON_USEDEP}]
 			dev-python/werkzeug[${PYTHON_USEDEP}]
 			dev-python/xmltodict[${PYTHON_USEDEP}]
 		')
 		app-arch/7zip
 		app-arch/unrar
 		app-arch/unzip
-		www-apps/chromedriver-bin
 	)
 "
 
