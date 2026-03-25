@@ -99,10 +99,6 @@ src_test() {
 		'tests/test_rss.py::TestRSS::test_rss_nzedb_parser'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_http_basic'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_https_basic'
-		# par2cmdline fails to match extra files on some builds/environments,
-		# reconstructing from parity instead of renaming. Not turbo-specific.
-		# https://github.com/sabnzbd/sabnzbd/issues/2274
-		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
 		# Requires chromedriver
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
@@ -110,16 +106,6 @@ src_test() {
 		# Runs extract_pot.py which needs the git repo
 		'tests/test_functional_misc.py::TestExtractPot::test_extract_pot'
 	)
-
-	# The test suite is prone to being broken by random plugins that happen
-	# to be installed, so disable autoloading.
-	local -x PYTEST_DISABLE_PLUGIN_AUTOLOAD=1
-	# Use PYTEST_PLUGINS instead of args to 'epytest' because the test suite
-	# calls pytest itself and the args would get lost. To get the list of plugins,
-	# if stuck, comment out the AUTOLOAD line above, look at the list of loaded
-	# plugins at the top of the pytest output, then translate those into module names
-	# by e.g. checking equery f.
-	local -x PYTEST_PLUGINS=pytest_mock,tavern,tavern._core.pytest,pyfakefs.pytest_plugin,pytest_asyncio.plugin,pytest_httpserver.pytest_plugin,pytest_httpbin.plugin
 
 	epytest -s
 }
