@@ -86,7 +86,7 @@ src_test() {
 		tests/test_get_addrinfo.py
 		tests/test_getipaddress.py
 		tests/test_internetspeed.py
-		# Requires chromedriver + Chrome, not available in portage
+		# Requires chromedriver
 		tests/test_functional_config.py
 		tests/test_functional_downloads.py
 		tests/test_functional_sorting.py
@@ -99,10 +99,6 @@ src_test() {
 		'tests/test_rss.py::TestRSS::test_rss_nzedb_parser'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_http_basic'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_https_basic'
-		# Release tarball build strips \r from .txt files, corrupting binary
-		# test data with misleading extensions (stillrarbutnotagoodname.txt).
-		# https://github.com/sabnzbd/sabnzbd/pull/3364
-		'tests/test_newsunpack.py::TestPar2Repair::test_basic'
 		# Requires chromedriver
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
