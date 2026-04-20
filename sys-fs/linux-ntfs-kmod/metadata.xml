@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>joe@wt.gd</email>
+		<name>Joe Kappus</name>
+	</maintainer>
+	<longdescription lang="en">
+		Out-of-tree build of the NTFS(NTFS PLUS) filesystem driver maintained
+		by Namjae Jeon. Provides a backport so modern NTFS support can be used
+		on older kernels (6.1 and newer). The built module is named 'ntfs' and
+		conflicts with the legacy in-kernel NTFS driver (CONFIG_NTFS_FS).
+	</longdescription>
+	<upstream>
+		<remote-id type="github">namjaejeon/linux-ntfs</remote-id>
+	</upstream>
+</pkgmetadata>
