@@ -1,0 +1,13 @@
+--- a/src/calibre/test_build.py
++++ b/src/calibre/test_build.py
+@@ -82,9 +82,8 @@
+         del CHMFile, chmlib
+
+     def test_tzdata(self):
+-        import tzdata
+         import tzlocal
+-        del tzlocal, tzdata
++        del tzlocal
+
+     def test_chardet(self):
+         from calibre_extensions.uchardet import detect
