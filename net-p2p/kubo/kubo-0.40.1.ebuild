@@ -22,6 +22,7 @@ DEPEND="
 	sys-fs/fuse:0
 "
 RDEPEND="${DEPEND}"
+BDEPEND=">=dev-lang/go-1.25.0"
 
 DOCS=( CHANGELOG.md CONTRIBUTING.md README.md docs/ )
 
