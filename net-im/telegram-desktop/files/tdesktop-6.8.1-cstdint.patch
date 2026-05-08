@@ -1,0 +1,36 @@
+diff --git a/Telegram/ThirdParty/tgcalls/tgcalls/Instance.h b/Telegram/ThirdParty/tgcalls/tgcalls/Instance.h
+index 5968b24..0e18653 100644
+--- a/Telegram/ThirdParty/tgcalls/tgcalls/Instance.h
++++ b/Telegram/ThirdParty/tgcalls/tgcalls/Instance.h
+@@ -6,6 +6,7 @@
+ #include <string>
+ #include <memory>
+ #include <map>
++#include <cstdint>
+ 
+ #include "Stats.h"
+ #include "DirectConnectionChannel.h"
+diff --git a/Telegram/ThirdParty/tgcalls/tgcalls/third-party/json11.cpp b/Telegram/ThirdParty/tgcalls/tgcalls/third-party/json11.cpp
+index c9cfbf8..22e4cfc 100644
+--- a/Telegram/ThirdParty/tgcalls/tgcalls/third-party/json11.cpp
++++ b/Telegram/ThirdParty/tgcalls/tgcalls/third-party/json11.cpp
+@@ -24,6 +24,7 @@
+ #include <cmath>
+ #include <cstdlib>
+ #include <cstdio>
++#include <cstdint>
+ #include <limits>
+ 
+ namespace json11 {
+diff --git a/Telegram/ThirdParty/tgcalls/tgcalls/v2/SignalingConnection.h b/Telegram/ThirdParty/tgcalls/tgcalls/v2/SignalingConnection.h
+index 3e95cb8..0127ce1 100644
+--- a/Telegram/ThirdParty/tgcalls/tgcalls/v2/SignalingConnection.h
++++ b/Telegram/ThirdParty/tgcalls/tgcalls/v2/SignalingConnection.h
+@@ -3,6 +3,7 @@
+ 
+ #include <memory>
+ #include <vector>
++#include <cstdint>
+ 
+ namespace webrtc {
+ }
