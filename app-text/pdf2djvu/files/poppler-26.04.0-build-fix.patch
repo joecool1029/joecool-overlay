@@ -1,0 +1,38 @@
+From 529376f6ebb96b345a906c8185f8fa9b7b246028 Mon Sep 17 00:00:00 2001
+From: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+Date: Sun, 5 Apr 2026 14:26:57 +0200
+Subject: [PATCH] Use Poppler 26.04.0
+
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index 988c2b44..6bdebb08 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -411,7 +411,11 @@ pdf::Metadata::Metadata(pdf::Document &document)
+     char tzs = 0; int tzh = 0, tzm = 0;
+     if (!pdf::dict_lookup(info_dict, field.first, &object)->isString())
+       continue;
++#if POPPLER_VERSION_NUMBER > 260300
++    const char *input = object.getString().c_str();
++#else
+     const char *input = pdf::get_c_string(object.getString());
++#endif
+     if (input[0] == 'D' && input[1] == ':')
+       input += 2;
+     int year = scan_date_digits(input, 4);
+diff --git a/pdf-unicode.cc b/pdf-unicode.cc
+index 53361229..01119364 100644
+--- a/pdf-unicode.cc
++++ b/pdf-unicode.cc
+@@ -109,7 +109,12 @@ std::string pdf::string_as_utf8(const pdf::String *string)
+ 
+ std::string pdf::string_as_utf8(pdf::Object &object)
+ {
++#if POPPLER_VERSION_NUMBER > 260300
++    pdf::String str = pdf::String(object.getString());
++    return pdf::string_as_utf8(&str);
++#else
+     return pdf::string_as_utf8(object.getString());
++#endif
+ }
+ 
+ /* class pdf::FullNFKC

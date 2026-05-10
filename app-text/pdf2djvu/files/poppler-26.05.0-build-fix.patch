@@ -1,0 +1,61 @@
+From 1ca01fc3d2f3ed9bd18ac354baf9ec200a5e74b2 Mon Sep 17 00:00:00 2001
+From: FriedrichFroebel <FriedrichFroebel@users.noreply.github.com>
+Date: Mon, 4 May 2026 19:40:18 +0200
+Subject: [PATCH] Remove the SplashCoord alias to double for Poppler 26.05.0
+
+diff --git a/pdf-backend.cc b/pdf-backend.cc
+index 6bdebb08..179f7ff9 100644
+--- a/pdf-backend.cc
++++ b/pdf-backend.cc
+@@ -542,7 +542,11 @@ void pdf::Renderer::convert_path(pdf::gfx::State *state, splash::Path &splash_pa
+     {
+       double x1, y1, x2, y2, x3, y3;
+       state->transform(subpath->getX(0), subpath->getY(0), &x1, &y1);
++#if POPPLER_VERSION_NUMBER > 260400
++      splash_path.moveTo(x1, y1);
++#else
+       splash_path.moveTo(static_cast<splash::Coord>(x1), static_cast<splash::Coord>(y1));
++#endif
+       int j = 1;
+       int n_points = subpath->getNumPoints();
+       while (j < n_points)
+@@ -552,17 +556,25 @@ void pdf::Renderer::convert_path(pdf::gfx::State *state, splash::Path &splash_pa
+           state->transform(subpath->getX(j), subpath->getY(j), &x1, &y1);
+           state->transform(subpath->getX(j + 1), subpath->getY(j + 1), &x2, &y2);
+           state->transform(subpath->getX(j + 2), subpath->getY(j + 2), &x3, &y3);
++#if POPPLER_VERSION_NUMBER > 260400
++          splash_path.curveTo(x1, y1, x2, y2, x3, y3);
++#else
+           splash_path.curveTo(
+             static_cast<splash::Coord>(x1), static_cast<splash::Coord>(y1),
+             static_cast<splash::Coord>(x2), static_cast<splash::Coord>(y2),
+             static_cast<splash::Coord>(x3), static_cast<splash::Coord>(y3)
+           );
++#endif
+           j += 3;
+         }
+         else
+         {
+           state->transform(subpath->getX(j), subpath->getY(j), &x1, &y1);
++#if POPPLER_VERSION_NUMBER > 260400
++          splash_path.lineTo(x1, y1);
++#else
+           splash_path.lineTo(static_cast<splash::Coord>(x1), static_cast<splash::Coord>(y1));
++#endif
+           j++;
+         }
+       }
+diff --git a/pdf-backend.hh b/pdf-backend.hh
+index 2f343a0e..f8668f27 100644
+--- a/pdf-backend.hh
++++ b/pdf-backend.hh
+@@ -63,7 +63,9 @@ namespace pdf
+     typedef ::Splash Splash;
+     typedef ::SplashColor Color;
+     typedef ::SplashFont Font;
++#if POPPLER_VERSION_NUMBER < 260500
+     typedef ::SplashCoord Coord;
++#endif
+     typedef ::SplashPath Path;
+     typedef ::SplashGlyphBitmap GlyphBitmap;
+     typedef ::SplashBitmap Bitmap;
