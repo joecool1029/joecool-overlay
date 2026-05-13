@@ -8,7 +8,7 @@ inherit go-module shell-completion systemd
 DESCRIPTION="Main implementation of IPFS"
 HOMEPAGE="https://ipfs.tech https://github.com/ipfs/kubo/"
 SRC_URI="https://github.com/ipfs/${PN}/releases/download/v${PV}/kubo-source.tar.gz -> ${P}.tar.gz"
-SRC_URI+=" https://xwaretech.info/${P}-vendor.tar.xz"
+SRC_URI+=" https://xwaretech.info/godeps/${P}-vendor.tar.xz"
 
 S="${WORKDIR}"
 

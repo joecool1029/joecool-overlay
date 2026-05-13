@@ -13,7 +13,7 @@ if [[ ${PV} == *9999 ]]; then
 	inherit git-r3
 else
 	SRC_URI="https://github.com/keybase/client/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
-	SRC_URI+=" https://xwaretech.info/${P}-deps.tar.xz"
+	SRC_URI+=" https://xwaretech.info/godeps/${P}-deps.tar.xz"
 	KEYWORDS="~amd64 ~arm64 ~x86"
 fi
 
