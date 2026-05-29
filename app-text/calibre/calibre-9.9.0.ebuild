@@ -127,10 +127,11 @@ PATCHES=(
 	# We don't (yet?) package libjxr and it seems to be dead upstream
 	# (last commit in 2017)
 	"${FILESDIR}/${PN}-9.7.0-jxr-test.patch"
-	"${FILESDIR}/${PN}-8.9.0-piper.patch"
+	"${FILESDIR}/${PN}-9.9.0-disable-piper.patch"
 	# Python 3.14's tzdata package raises on import (PEP 615);
 	# drop the redundant tzdata import from test_build
 	"${FILESDIR}/${PN}-9.7.0-py314-tzdata.patch"
+	"${FILESDIR}/${PN}-9.9.0-drop-libpostproc.patch"
 )
 
 src_prepare() {
