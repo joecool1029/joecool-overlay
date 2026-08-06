@@ -41,11 +41,12 @@ DEPEND="
 		dev-python/cryptography[${PYTHON_USEDEP}]
 		>=dev-python/feedparser-6.0.11[${PYTHON_USEDEP}]
 		>=dev-python/guessit-3.8.0[${PYTHON_USEDEP}]
+		dev-python/hachoir[${PYTHON_USEDEP}]
 		dev-python/notify2[${PYTHON_USEDEP}]
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
 		~dev-python/rarfile-4.3[${PYTHON_USEDEP}]
-		~dev-python/sabctools-9.6.1[${PYTHON_USEDEP}]
+		~dev-python/sabctools-9.6.3[${PYTHON_USEDEP}]
 	')
 "
 RDEPEND="
@@ -60,7 +61,6 @@ BDEPEND="
 	test? (
 		$(python_gen_cond_dep '
 			dev-python/flaky[${PYTHON_USEDEP}]
-			dev-python/hachoir[${PYTHON_USEDEP}]
 			dev-python/lxml[${PYTHON_USEDEP}]
 			dev-python/pyfakefs[${PYTHON_USEDEP}]
 			dev-python/pytest-asyncio[${PYTHON_USEDEP}]
