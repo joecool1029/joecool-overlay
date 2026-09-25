@@ -46,6 +46,7 @@ DEPEND="
 		dev-python/puremagic[${PYTHON_USEDEP}]
 		~dev-python/rarfile-4.5[${PYTHON_USEDEP}]
 		~dev-python/sabctools-9.7.1[${PYTHON_USEDEP}]
+		dev-python/uvicorn[${PYTHON_USEDEP}]
 	')
 "
 RDEPEND="
@@ -75,7 +76,6 @@ BDEPEND="
 			dev-python/starlette[${PYTHON_USEDEP}]
 			dev-python/tavalidate[${PYTHON_USEDEP}]
 			>=dev-python/tavern-3[${PYTHON_USEDEP}]
-			dev-python/uvicorn[${PYTHON_USEDEP}]
 			dev-python/werkzeug[${PYTHON_USEDEP}]
 			dev-python/xmltodict[${PYTHON_USEDEP}]
 		')
