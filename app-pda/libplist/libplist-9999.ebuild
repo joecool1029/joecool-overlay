@@ -1,4 +1,4 @@
-# Copyright 1999-2025 Gentoo Authors
+# Copyright 1999-2026 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -42,6 +42,6 @@ src_install() {
 	# bugs #733082, #915375
 	dosym ./libplist-2.0.pc /usr/$(get_libdir)/pkgconfig/libplist.pc
 	dosym ./libplist++-2.0.pc /usr/$(get_libdir)/pkgconfig/libplist++.pc
-	dosym ./libplist++-2.0.so.4.7.0 /usr/$(get_libdir)/libplist++.so
-	dosym ./libplist-2.0.so.4.7.0 /usr/$(get_libdir)/libplist.so
+	dosym ./libplist++-2.0.so.12.0.0 /usr/$(get_libdir)/libplist++.so
+	dosym ./libplist-2.0.so.12.0.0 /usr/$(get_libdir)/libplist.so
 }
