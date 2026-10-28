@@ -3,7 +3,7 @@
 
 EAPI="8"
 
-PYTHON_COMPAT=( python3_{12..14} )
+PYTHON_COMPAT=( python3_{13..14} )
 PYTHON_REQ_USE="sqlite"
 
 inherit optfeature python-single-r1 systemd
@@ -36,7 +36,6 @@ DEPEND="
 		>=dev-python/apprise-1.9.2[${PYTHON_USEDEP}]
 		dev-python/chardet[${PYTHON_USEDEP}]
 		>=dev-python/cheetah3-3.4.0[${PYTHON_USEDEP}]
-		dev-python/cherrypy[${PYTHON_USEDEP}]
 		dev-python/configobj[${PYTHON_USEDEP}]
 		dev-python/cryptography[${PYTHON_USEDEP}]
 		>=dev-python/feedparser-6.0.11[${PYTHON_USEDEP}]
@@ -45,8 +44,10 @@ DEPEND="
 		dev-python/notify2[${PYTHON_USEDEP}]
 		dev-python/portend[${PYTHON_USEDEP}]
 		dev-python/puremagic[${PYTHON_USEDEP}]
-		~dev-python/rarfile-4.3[${PYTHON_USEDEP}]
-		~dev-python/sabctools-9.6.3[${PYTHON_USEDEP}]
+		~dev-python/rarfile-4.5[${PYTHON_USEDEP}]
+		~dev-python/sabctools-9.7.1[${PYTHON_USEDEP}]
+		dev-python/starlette[${PYTHON_USEDEP}]
+		dev-python/uvicorn[${PYTHON_USEDEP}]
 	')
 "
 RDEPEND="
@@ -61,7 +62,10 @@ BDEPEND="
 	test? (
 		$(python_gen_cond_dep '
 			dev-python/flaky[${PYTHON_USEDEP}]
+			dev-python/greenlet[${PYTHON_USEDEP}]
+			dev-python/httptools[${PYTHON_USEDEP}]
 			dev-python/lxml[${PYTHON_USEDEP}]
+			dev-python/pyee[${PYTHON_USEDEP}]
 			dev-python/pyfakefs[${PYTHON_USEDEP}]
 			dev-python/pytest-asyncio[${PYTHON_USEDEP}]
 			dev-python/pytest-httpbin[${PYTHON_USEDEP}]
@@ -97,12 +101,14 @@ src_test() {
 		'tests/test_cfg.py::TestValidators::test_validate_host'
 		'tests/test_consistency.py::TestWiki'
 		'tests/test_downloader.py::TestConnectionStateMachine::test_failed_connect_allows_retry'
+		'tests/test_rss.py::TestRSS::test_feedconfig_evaluator'
 		'tests/test_rss.py::TestRSS::test_rss_newznab_parser'
 		'tests/test_rss.py::TestRSS::test_rss_nzedb_parser'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_http_basic'
 		'tests/test_urlgrabber.py::TestBuildRequest::test_https_basic'
 		# Requires chromedriver
 		'tests/test_functional_misc.py::TestShowLogging::test_showlog'
+		'tests/test_functional_misc.py::TestShowLogging::test_log_page_route'
 		'tests/test_functional_misc.py::TestQueueRepair::test_queue_repair'
 		'tests/test_functional_misc.py::TestDaemonizing::test_daemonizing'
 		# Runs extract_pot.py which needs the git repo
@@ -133,7 +139,7 @@ src_install() {
 	insopts -m 0600 -o "${PN}" -g "${PN}"
 	newins "${FILESDIR}"/${PN}-r1.ini ${PN}.ini
 
-	dodoc ISSUES.txt README.mkd
+	dodoc README.mkd
 
 	systemd_newunit "${FILESDIR}"/sabnzbd_at.service 'sabnzbd@.service'
 }
