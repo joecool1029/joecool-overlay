@@ -42,6 +42,6 @@ src_install() {
 	# bugs #733082, #915375
 	dosym ./libplist-2.0.pc /usr/$(get_libdir)/pkgconfig/libplist.pc
 	dosym ./libplist++-2.0.pc /usr/$(get_libdir)/pkgconfig/libplist++.pc
-	dosym ./libplist++-2.0.so.12.0.0 /usr/$(get_libdir)/libplist++.so
-	dosym ./libplist-2.0.so.12.0.0 /usr/$(get_libdir)/libplist.so
+	dosym ./libplist++-2.0.so.12.0.1 /usr/$(get_libdir)/libplist++.so
+	dosym ./libplist-2.0.so.12.0.1 /usr/$(get_libdir)/libplist.so
 }
